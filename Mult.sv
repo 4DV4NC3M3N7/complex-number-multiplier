@@ -1,19 +1,18 @@
 module Mult(
-input [15:0]a,b,
-
-output[31:0]out
-				);
-wire [31:0] A,B,A_,B_;
-wire [31:0][31:0]A_start;
-wire [31:0] zero,one;
-wire [30:0][31:0] ans;
-wire go;
-assign go = a[15]&b[15];
-assign A_[31:0]={a[15],a[15],a[15],a[15],a[15],a[15],a[15],a[15],a[15],a[15],a[15],a[15],a[15],a[15],a[15],a[15],a[15:0]};
-assign B_[31:0]={b[15],b[15],b[15],b[15],b[15],b[15],b[15],b[15],b[15],b[15],b[15],b[15],b[15],b[15],b[15],b[15],b[15:0]};
-Adder converta(.a({32'b00000000000000000000000000000000}),.b(A_),.sum_dif(A),.carry_in(go),.add_sub(go));
-Adder convertb(.a({32'b00000000000000000000000000000000}),.b(B_),.sum_dif(B),.carry_in(go),.add_sub(go));
-assign zero[31:0] = 32'h00000000;
+	input [15:0]a,b,
+	output[31:0]out
+	);
+	wire [31:0] A,B,A_,B_;
+	wire [31:0] A_start [31:0];
+ 	wire [31:0] zero,one;
+	wire [31:0] ans [30:0];
+	wire go;
+	assign go = a[15]&b[15];
+	assign A_[31:0]={{16{a[15]}},a[15:0]};
+	assign B_[31:0]={{16{b[15]}},b[15:0]};
+		Adder converta(.a({32'b0}),.b(A_),.sum_dif(A),.carry_in(go),.add_sub(go));
+		Adder convertb(.a({32'b0}),.b(B_),.sum_dif(B),.carry_in(go),.add_sub(go));
+	assign zero[31:0] = 32'b0;
 	generate
 	genvar i,j;
 	
